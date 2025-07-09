@@ -24,7 +24,7 @@
 (require 'util)
 
 
-(defvar prosody-testing-word "babebibobub")
+(defvar prosody-testing-word "")
 
 
 ;;; Prosody parameter accessors
@@ -149,7 +149,7 @@
                                                   (mapcar cadr result)))
                          result)))
         (unwind-protect*
-            (SynthText prosody-testing-word)
+          ;  (SynthText prosody-testing-word)
           (avalue-set! 'targ_func int_general_params orig-targ-func))
         (set! pitch-list (or (butlast (cdr pitch-list)) '(100)))
         (let* ((n (length pitch-list))
