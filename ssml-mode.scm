@@ -38,7 +38,7 @@
 ;; mark: supported
 ;; desc: ignored (no reasonable use here known)
 
-
+(set! ignore-recode "false")
 (require 'duration)
 (require_module 'rxp)
 
