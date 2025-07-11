@@ -99,7 +99,10 @@
 (define (ssml-attval attlist att)
   (let ((attval (car (xxml_attval att attlist))))
     (if attval
-        (string-append attval))))
+      (if (string-equal ignore-recode "true")
+   (string-append attval)
+   (recode-utf8->current (string-append attval))
+    ))))
 
 (define (ssml-attval-time attlist att)
   (let ((time (string-before (ssml-attval attlist 'time) "s")))
@@ -563,8 +566,14 @@
         (unwind-protect
           (let ((orig-voice (ssml-current-voice)))
             (voice.select voice)
-	    (set! element-text element-text)
-	  )
+            (if (string-equal ignore-recode "true")
+            (set! element-text (if (pair? element-text)
+                                   (first element-text)
+                                   element-text))
+        ; ignore-recode = false or null
+            (set! element-text (if (pair? element-text)
+                                   (first element-text)
+                                   (recode-utf8->current element-text)))))
           (voice.select orig-voice))
         ;; add text
         (unless (string-equal element-text "")
