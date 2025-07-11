@@ -40,7 +40,11 @@
     (hr croatian)
     (it italian)
     (mr marathi)
-    (te telugu))
+    (te telugu)
+    (pt portuguese
+        (pt portuguese)
+        (BR brazilian))
+)
   "Alist mapping ISO language codes to Festival language names.
 Each element of the alist is of the form (LANGUAGE-CODE LANGUAGE-NAME).
 Optionally, elements can have an extended
