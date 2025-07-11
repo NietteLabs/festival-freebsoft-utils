@@ -37,11 +37,9 @@
 ;; audio: supported (TODO more complicated alternative text may fail to render)
 ;; mark: supported
 ;; desc: ignored (no reasonable use here known)
-
-(set! ignore-recode "false")
+(defvar ignore-recode:mode nil)
 (require 'duration)
 (require_module 'rxp)
-
 (require 'prosody-param)
 (require 'recode)
 (require 'spell-mode)
@@ -99,7 +97,7 @@
 (define (ssml-attval attlist att)
   (let ((attval (car (xxml_attval att attlist))))
     (if attval
-      (if (string-equal ignore-recode "true")
+      (if ignore-recode:mode
    (string-append attval)
    (recode-utf8->current (string-append attval))
     ))))
@@ -566,7 +564,7 @@
         (unwind-protect
           (let ((orig-voice (ssml-current-voice)))
             (voice.select voice)
-            (if (string-equal ignore-recode "true")
+            (if ignore-recode:mode
             (set! element-text (if (pair? element-text)
                                    (first element-text)
                                    element-text))
